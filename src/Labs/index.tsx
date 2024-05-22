@@ -7,6 +7,9 @@ export default function Labs() {
   return (
     <div>
       <h1>Labs</h1>
+      <h2> author: Jiayue Zhang</h2>
+      <h2> Summer 2024</h2>
+      <a href="https://github.com/jiayuezhang84">My GitHub</a>
       <TOC />
       <Routes>
         <Route path="/" element={<Navigate to="Lab1" />} />
@@ -14,6 +17,7 @@ export default function Labs() {
         <Route path="Lab2" element={<Lab2 />} />
         <Route path="Lab3" element={<Lab3 />} />
       </Routes>
+      
     </div>
   );
 }
