@@ -1,3 +1,7 @@
+import ModulesControls from "./ModulesControls";
+import { BsGripVertical } from "react-icons/bs";
+import LessonControlButtons from "./LessonControlButtons";
+import ModuleControlButtons from "./ModuleControlButtons";
 export default function Modules() {
     const modulesData = [
         {
@@ -27,34 +31,22 @@ export default function Modules() {
     ];
 
     return (
-        <div>
-            <div>
-                <button>Collapse All</button>
-                <button>View Progress</button>
-                <select id="wd-publish">
-                    <option selected value="publish">Publish</option>
-                    <option value="hide">Hide</option>
-                </select>
-                <button>+ Modules</button>
-            </div>
-
-            <ul id="wd-modules">
+        <div id="modulesContainer">
+            <ModulesControls /><br /><br /><br /><br />
+            <ul className="list-group rounded-0">
                 {modulesData.map((module, index) => (
-                    <li className="wd-module" key={index}>
-                        <div className="wd-title">{module.week}</div>
-                        <ul className="wd-lessons">
-                            {module.lessons.map((lesson, index) => (
-                                <li className="wd-lesson" key={index}>
-                                    <span className="wd-title">{lesson.title}</span>
-                                    {lesson.content.length > 0 && (
-                                        <ul className="wd-content">
-                                            {lesson.content.map((item, index) => (
-                                                <li className="wd-content-item" key={index}>
-                                                    {item}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
+                    <li key={index} className="list-group-item p-0 mb-5 fs-5 border-gray">
+                        <div className="wd-title p-3 ps-2 bg-secondary">
+                            <BsGripVertical className="me-2 fs-3" />
+                            {module.week}
+                            <ModuleControlButtons />
+                        </div>
+                        <ul className="wd-lessons list-group rounded-0">
+                            {module.lessons.map((lesson, lessonIndex) => (
+                                <li key={lessonIndex} className="wd-lesson list-group-item p-3 ps-1">
+                                    <BsGripVertical className="me-2 fs-3" />
+                                    {lesson.title}
+                                    <LessonControlButtons />
                                 </li>
                             ))}
                         </ul>
