@@ -16,7 +16,7 @@ interface ItemListProps {
 
 function ItemList({ items, title, itemType }: ItemListProps) {
     function formatDetails(details: string | undefined): { __html: string } {
-      if (!details) return { __html: "" }; // Handle undefined or null details safely
+      if (!details) return { __html: "" };
   
       const formattedDetails = details.replace(/(Not Available until|Due)/g, '<strong>$1</strong>');
       return { __html: formattedDetails };

@@ -45,3 +45,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 # kanbas-react-web-app
+# kanbas-react-web-app-copy
+# kanbas-react-web-app-dup
+# kanbas-react-web-app-dup
