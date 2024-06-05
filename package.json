@@ -17,6 +17,7 @@
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2",
     "web-vitals": "^4.0.1"
+
   },
   "scripts": {
     "start": "vite",
@@ -28,5 +29,8 @@
     "@types/jest": "^29.5.12",
     "@types/react-dom": "^18.3.0",
     "@types/testing-library__react": "^10.2.0"
+  },
+  "scripts": {
+    "build": "react-scripts build"
   }
 }
