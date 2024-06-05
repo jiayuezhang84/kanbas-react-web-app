@@ -1,7 +1,7 @@
 export default function Lab1() {
   return (
     <div id="wd-lab1" className="lab1">
-      <h2>Lab 1</h2>
+      <h2>Lab 1 - test</h2>
       <h3>HTML Examples</h3>
       <div id="wd-h-tag">
         <h4>1. Heading Tags</h4>
