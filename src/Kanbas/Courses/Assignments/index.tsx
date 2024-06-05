@@ -1,6 +1,9 @@
-import AssignmentControl from './AssignmentControl'
+import AssignmentControl from './AssignmentControl';
 import ItemControlButton from './ItemControlButton';
 import AssignmentButton from './AssignmentButton';
+import { BsGripVertical } from "react-icons/bs";
+import { LuBookOpenCheck } from "react-icons/lu";
+import './style.css'  
 
 interface Item {
   id: number;
@@ -12,9 +15,10 @@ interface ItemListProps {
   items: Item[];
   title: string;
   itemType: string;
+  weight: string;
 }
 
-function ItemList({ items, title, itemType }: ItemListProps) {
+function ItemList({ items, title, itemType, weight }: ItemListProps) {
     function formatDetails(details: string | undefined): { __html: string } {
       if (!details) return { __html: "" };
   
@@ -23,22 +27,31 @@ function ItemList({ items, title, itemType }: ItemListProps) {
     }
   
     return (
-      <div className="list-group rounded-0">
+      <div className="list-group rounded-0" > 
         <div className="list-group-item p-0 mb-5 fs-5 border-gray">
-          <div className={`wd-title p-3 ps-2 bg-secondary`}>
-            {title}  {/* Place the title in the header position like module.week */}
-            <ItemControlButton />
+          <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between" >
+            <div className="d-flex align-items-center">
+              <BsGripVertical className="me-2" />
+              {title}
+            </div>
+            <div className="d-flex align-items-center">
+              <span className="weight-box me-3">{weight}</span>
+              <ItemControlButton />
+            </div>
           </div>
           <ul>
-            {items.map((item: any, index: any) => (
-              <li key={index} className="list-group-item p-0 mb-1 fs-5 border-gray">
-                <div className="p-3 ps-2">
-                  <a className={`wd-${itemType}-link`}
-                    href={`#/Kanbas/Courses/1234/assignments/${item.title}`}>
-                    {item.title}
-                  </a>
+            {items.map((item, index) => (
+              <li key={index} className="list-group-item p-0 fs-5 border-gray list-group-item-border-left">
+                <div className="p-3 ps-2 d-flex align-items-center">
+                <BsGripVertical className="me-2" />
+                  <LuBookOpenCheck className="me-3" style={{ color: 'green' }} />
+                  <div className="flex-grow-1">
+                    <a className={`wd-${itemType}-link`} href={`#/Kanbas/Courses/1234/assignments/${item.title}`}>
+                      {item.title}
+                    </a>
+                    <div dangerouslySetInnerHTML={formatDetails(item.details)} style={{ marginTop: '0.5rem' }} />
+                  </div>
                   <AssignmentButton />
-                  <div dangerouslySetInnerHTML={formatDetails(item.details)} />
                 </div>
               </li>
             ))}
@@ -46,7 +59,8 @@ function ItemList({ items, title, itemType }: ItemListProps) {
         </div>
       </div>
     );
-  }
+}
+
   
   export default function Assignments() {
     const assignments = [
@@ -79,12 +93,12 @@ function ItemList({ items, title, itemType }: ItemListProps) {
     return (
       <div id="modulesContainer">
         <div>
-          <AssignmentControl /><br /><br /><br /><br />
+          <AssignmentControl /><br /><br />
         </div>
-        <ItemList items={assignments} title="ASSIGNMENTS 40% of Total" itemType="assignments" />
-        <ItemList items={quizzes} title="Quizzes 10% of Total" itemType="quizzes" />
-        <ItemList items={projects} title="Project 30% of Total" itemType="project" />
-        <ItemList items={exams} title="Exam 20% of Total" itemType="exam" />
+        <ItemList items={assignments} title="ASSIGNMENTS" itemType="assignments" weight="40% of Total"/>
+        <ItemList items={quizzes} title="Quizzes" itemType="quizzes" weight="10% of Total"/>
+        <ItemList items={projects} title="Project" itemType="project" weight="30% of Total"/>
+        <ItemList items={exams} title="Exam" itemType="exam" weight="20% of Total"/>
       </div>
     );
   }
