@@ -4,9 +4,7 @@ import { assignments } from "../../Database";
 export default function AssignmentEditor() {
   const { aid, cid } = useParams();
   const assignment = assignments.find(assn => assn._id === aid);
-  // console.log("Found assignment:", assignment);
-  // console.log("Assignment ID:", aid);
-  // console.log("Course ID:", cid);
+
   if (!assignment) {
     return <div>Assignment not found.</div>;
   }
