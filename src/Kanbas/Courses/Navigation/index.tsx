@@ -1,41 +1,25 @@
-import React, { useState } from 'react';
-import "./index.css";
-import { courses } from "../../Database";
+import { Link, useParams, useLocation } from 'react-router-dom';
+import "./index.css"
 
 export default function CoursesNavigation() {
-  const [activeItem, setActiveItem] = useState('home');
+    const { cid } = useParams();
+    const location = useLocation();
+    const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"];
 
-  const defaultCourseName = courses[0]._id;
-
-  const navigationItems = [
-    { id: 'home', label: 'Home', path: 'Home' },
-    { id: 'modules', label: 'Modules', path: 'Modules' },
-    { id: 'piazza', label: 'Piazza', path: 'Piazza' },
-    { id: 'zoom', label: 'Zoom', path: 'Zoom' },
-    { id: 'assignments', label: 'Assignments', path: 'Assignments' },
-    { id: 'quizzes', label: 'Quizzes', path: 'Quizzes' },
-    { id: 'grades', label: 'Grades', path: 'Grades' }
-  ];
-
-  const handleSetActive = (id: string) => {
-    setActiveItem(id);
-  };
-
-  const getItemClass = (id: string) => {
-    return `list-group-item border border-0 ${activeItem === id ? 'active' : 'text-danger'}`;
-  };
-
-  return (
-    <div id="wd-courses-navigation" className="list-group fs-5 rounded-0">
-      {navigationItems.map((item) => (
-        <a key={item.id}
-           id={`wd-course-${item.id}-link`}
-           href={`#/Kanbas/Courses/${defaultCourseName}/${item.path}`}
-           className={getItemClass(item.id)}
-           onClick={() => handleSetActive(item.id)}>
-          {item.label}
-        </a>
-      ))}
-    </div>
-  );
+    return (
+        <div id="wd-courses-navigation" className="list-group fs-5 rounded-0">
+            {links.map((link, index) => {
+                const isActive = location.pathname.includes(`/Kanbas/Courses/${cid}/${link}`);
+                return (
+                    <Link
+                        key={index}
+                        to={`/Kanbas/Courses/${cid}/${link}`}
+                        className={`list-group-item ${isActive ? 'active' : 'text-danger'} border-0`}
+                    >
+                        {link}
+                    </Link>
+                );
+            })}
+        </div>
+    );
 }

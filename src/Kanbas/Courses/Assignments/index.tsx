@@ -8,6 +8,8 @@ import { IoSearchOutline } from "react-icons/io5";
 import "./index.css"
 import { Link, useParams } from "react-router-dom";
 import { assignments } from "../../Database";
+
+
 export default function Assignments() {
   const { cid } = useParams();
   const courseAssignments = assignments.filter(assignment => assignment.course === cid);

@@ -1,16 +1,20 @@
-.table-bordered td, .table-bordered th {
-    border: 1px solid #dee2e6;
-  }
-  
-  .text-red {
-    color: #B52828 !important;
-  }
-  .uniform-cell {
-    width: 100px;
+.assignment-header {
+  text-align: center;
+}
+.assignment-subtitle {
+  font-size: smaller;
+}
+.table-custom {
+  border: 1px solid gray;
+}
 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    white-space: nowrap; 
-  }
+.table-custom th,
+.table-custom td {
+  border: 1px solid gray;
+}
+
+.red-text {
+  color: red !important;
+}
   
   
