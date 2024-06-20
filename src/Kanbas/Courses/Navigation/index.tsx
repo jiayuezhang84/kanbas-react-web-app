@@ -1,8 +1,11 @@
-import './index.css';
 import React, { useState } from 'react';
+import "./index.css";
+import { courses } from "../../Database";
 
 export default function CoursesNavigation() {
-  const [activeItem, setActiveItem] = useState('Home');
+  const [activeItem, setActiveItem] = useState('home');
+
+  const defaultCourseName = courses[0]._id;
 
   const navigationItems = [
     { id: 'home', label: 'Home', path: 'Home' },
@@ -14,12 +17,12 @@ export default function CoursesNavigation() {
     { id: 'grades', label: 'Grades', path: 'Grades' }
   ];
 
-  const handleSetActive = (item: string) => {
-    setActiveItem(item);
+  const handleSetActive = (id: string) => {
+    setActiveItem(id);
   };
 
-  const getItemClass = (itemName: string) => {
-    return `list-group-item border border-0 ${activeItem === itemName ? 'active' : 'text-danger'}`;
+  const getItemClass = (id: string) => {
+    return `list-group-item border border-0 ${activeItem === id ? 'active' : 'text-danger'}`;
   };
 
   return (
@@ -27,9 +30,9 @@ export default function CoursesNavigation() {
       {navigationItems.map((item) => (
         <a key={item.id}
            id={`wd-course-${item.id}-link`}
-           href={`#/Kanbas/Courses/1234/${item.path}`}
-           className={getItemClass(item.label)}
-           onClick={() => handleSetActive(item.label)}>
+           href={`#/Kanbas/Courses/${defaultCourseName}/${item.path}`}
+           className={getItemClass(item.id)}
+           onClick={() => handleSetActive(item.id)}>
           {item.label}
         </a>
       ))}

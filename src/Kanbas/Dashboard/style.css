@@ -1,13 +1,4 @@
-.wd-dashboard-course {
-    width: 262px;
-}
-
-.card {
-    height: 257px;
-    display: flex;
-}
-
-.card img {
+.card-img {
     height: 146px;
     width: 100%;
     object-fit: cover;
