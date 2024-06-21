@@ -15,21 +15,9 @@ export default function AssignmentEditor() {
         <input type="text" className="form-control" id="input1" placeholder={assignment._id} value={assignment.title}/>
       </div>
       <div className="mb-3">
-  <div className="form-control" id="wd-description" style={{ minHeight: '150px', overflowY: 'auto', whiteSpace: 'pre-wrap' }}>
-    <p>The assignment is <span style={{ color: 'red' }}>available online</span></p>
-    <p></p>
-    <p></p>
-    <p>Submit a link to the landing page of your Web Application running on <span style={{ textDecoration: 'underline dashed red' }}>Netlify</span>.</p>
-    <p></p>
-    <p>The landing page should include the following:</p>
-    <ul>
-      <li>Your full name and section</li>
-      <li>Links to each of the lab assignments</li>
-      <li>Link to the <span style={{ textDecoration: 'underline dashed red' }}>Kanbas</span> application</li>
-      <li>Links to all relevant source code respositories</li>
-    </ul>
-    <p></p>
-    <p><span style={{ backgroundColor: 'lightgrey' }}>The</span> <span style={{ textDecoration: 'underline dashed red' }}>Kanbas</span> application should include a link to navigate back to the landing page.</p>
+  <div className="form-control" id="wd-description" style={{ minHeight: '150px', overflowY: 'auto', whiteSpace: 'pre-wrap', backgroundColor: "white"}}>
+    <p> Here is the assignment</p>
+
   </div>
 </div>
 <div className="mb-3 row">
