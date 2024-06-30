@@ -10,6 +10,11 @@ import PassingDataOnEvent from "./PassingDataOnEvent";
 import PassingFunctions from "./PassingFunctions";
 import ReduxExamples from "./ReduxExamples";
 import StringStateVariables from "./StringStateVariables";
+import HelloRedux from "./ReduxExamples/HelloRedux";
+import CounterRedux from "./ReduxExamples/CounterRedux";
+import AddRedux from "./ReduxExamples/AddRedux";
+import TodoList from "./ReduxExamples/todo/TodoList";
+
 
 export default function Lab4() {
     function sayHello() {
@@ -31,6 +36,10 @@ export default function Lab4() {
         <ArrayStateVariable />
         <ParentStateComponent />
         <ReduxExamples />
+        <HelloRedux />
+        <CounterRedux />
+        <AddRedux />
+        <TodoList />
       </div>
     );
   }

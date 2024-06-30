@@ -6,8 +6,10 @@ import todosReducer from "../Lab4/ReduxExamples/todo/todosReducer";
 
 const store = configureStore({
   reducer: {
-    helloReducer, counterReducer,
-    addReducer, todosReducer
+    helloReducer,
+    counterReducer,
+    addReducer,
+    todosReducer,
   },
 });
 export default store;

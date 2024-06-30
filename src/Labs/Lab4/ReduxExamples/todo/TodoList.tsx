@@ -1,7 +1,7 @@
-import React from "react";
+import { useSelector } from "react-redux";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
-import { useSelector } from "react-redux";
+
 export default function TodoList() {
   const { todos } = useSelector((state: any) => state.todosReducer);
   return (
@@ -10,10 +10,10 @@ export default function TodoList() {
       <ul className="list-group">
         <TodoForm />
         {todos.map((todo: any) => (
-          <TodoItem todo={todo} />
+          <TodoItem todo={todo} key={todo.id} />
         ))}
       </ul>
-      <hr/>
+      <hr />
     </div>
   );
 }
