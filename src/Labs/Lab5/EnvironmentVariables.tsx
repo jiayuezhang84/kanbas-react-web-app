@@ -1,5 +1,4 @@
-
-
+// @ts-ignore
 const REMOTE_SERVER = import.meta.env.VITE_REACT_APP_REMOTE_SERVER;
 export default function EnvironmentVariables() {
   console.log(REMOTE_SERVER)
