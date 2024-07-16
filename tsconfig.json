@@ -19,7 +19,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "typeRoots" : ["./src/types"]
+    "types": ["./env.d.ts"],
+  
   },
   "include": [
     "src"
