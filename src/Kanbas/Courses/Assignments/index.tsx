@@ -1,74 +1,72 @@
-import AssignmentsControls from "./AssignmentControls";
-import { deleteAssignment } from "./reducer";
-import { useSelector, useDispatch } from "react-redux";
-import { BsGripVertical } from "react-icons/bs";
-import { TfiWrite } from "react-icons/tfi";
-import { useParams, useNavigate } from "react-router";
-import SingleAssignmentControlButtons from "./SingleAssignmentControlButtons";
+import * as client from "./client";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { useParams } from "react-router";
+import {Link} from "react-router-dom";
+import {FaAngleDown, FaBookOpen} from "react-icons/fa6";
+import {BsGripVertical} from "react-icons/bs";
+import AssignmentsControl from "./AssignmentsControl"
+import AssignmentGroupControlButtons from "./AssignmentGroupControlButtons"
 import AssignmentControlButtons from "./AssignmentControlButtons";
-import "./index.css";
-import { FaSortDown } from "react-icons/fa";
+import { setAssignments, deleteAssignment} from "./reducer";
 
 export default function Assignments() {
-  const { cid } = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
-  return (
-    <div id="wd-assignments">
-      <AssignmentsControls
-        addAssignment={() => {
-          navigate(`/Kanbas/Courses/${cid}/Assignments/new`);
-        }}
-      />
-      <ul id="wd-assignments" className="list-group rounded-0 mt-3">
-        <li className="wd-assignment list-group-item p-0 mb-5 fs-5 border-gray">
-          <div className="wd-assignments-title p-3 ps-2 bg-light">
-            <BsGripVertical className="me-2 fs-3" />
-            <FaSortDown className="mb-3" />
-            <strong className="mx-2 mb-2">ASSIGNMENTS</strong>
-            <SingleAssignmentControlButtons />
-          </div>
-          <ul
-            className="wd-lessons list-group rounded-0"
-            style={{
-              borderLeftWidth: "thick",
-              borderLeftColor: "green",
-              borderLeftStyle: "solid",
-            }}
-          >
-            {assignments
-              .filter((assignment: any) => assignment.course === cid)
-              .map((assignment: any) => (
-                <li
-                  key={assignment._id}
-                  className="wd-lesson list-group-item d-flex align-items-center p-3"
-                >
-                  <BsGripVertical className="fs-3" />
-                  <TfiWrite className="wd-fg-color-green me-2 fs-3" />
-                  <div style={{ display: "inline-flex", flexDirection: "column" }}>
-                    <div>{assignment.title}</div>
-                    <div>
-                      <span style={{ color: "red" }}>Multiple Modules</span> | Not available until {assignment.availableDate}
+    const dispatch = useDispatch();
+    const { cid } = useParams();
+    const { assignments } = useSelector((state:any) => state.assignmentsReducer);
+  
+    const fetchAssignments = async () => {
+        const fetchAssignments = await client.findAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(fetchAssignments));
+    };
+    useEffect(() => {
+        fetchAssignments();
+    }, []);
+    const removeAssignment = async (assignmentId: string) => {
+        await client.deleteAssignment(assignmentId);
+        dispatch(deleteAssignment(assignmentId));
+    };
+    return (
+        <div id="wd-assignments">
+            <AssignmentsControl/> <br/><br/><br/>
+            <li id="wd-assignments" className="list-group rounded-0">
+                <li className="wd-assignments-group list-group-item p-0 mb-5 fs-5 border-gray">
+                    <div className="wd-assignments-title p-3 ps-2 bg-secondary">
+                        <BsGripVertical className="me-2 fs-3"/>
+                        <FaAngleDown className="me-2 fs-3"/>
+                        <b>ASSIGNMENTS</b>
+                        <AssignmentGroupControlButtons/>
+                        <div className="float-end px-1 mx-3 border border-1 border-black rounded-4">40% of Total
+                        </div>
                     </div>
-                    <div>
-                      Due {assignment.dueDate} | {assignment.points} pts
-                    </div>
-                  </div>
-                  <div className="ms-auto">
-                    <AssignmentControlButtons
-                      assignmentId={assignment._id}
-                      deleteAssignment={(assignmentId) => {
-                        dispatch(deleteAssignment(assignmentId));
-                      }}
-                      editAssignment={() =>
-                        navigate(
-                          `/Kanbas/Courses/${assignment.course}/Assignments/${assignment._id}`)} /> </div>
+                    <ul className="wd-assignment-list list-group rounded-0">
+                        {assignments.map((assignment: any) => (
+                            <li key={`a-${assignment._id}`}
+                                className="wd-assignment-list-item list-group-item p-3 ps-1 d-flex align-items-center"
+                                style={{borderLeft: "4px solid green"}}>
+                                <BsGripVertical className="me-2 fs-3"/>
+                                <FaBookOpen className="me-2 fs-3 text-success"/>
+                                <div className="flex-grow-1 px-3">
+                                    <Link
+                                        className="wd-assignment-link fw-bold"
+                                        style={{textDecoration: "none", color: "navy", fontWeight: "bold"}}
+                                        key={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                                        to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
+                                        {assignment.title}
+                                    </Link>
+                                    <br/>
+                                    <span className="text-danger">Multiple Modules </span>
+                                    | <b>Not available
+                                    until</b> {(assignment.availableDate)} | <br/>
+                                    <b>Due</b> {(assignment.dueDate)} | {assignment.points} pts
+                                </div>
+                                <AssignmentControlButtons removeAssignment={() => removeAssignment(assignment._id)}
+                                                          assignment={assignment}/>
+                            </li>
+                        ))}
+                    </ul>
                 </li>
-              ))}
-          </ul>
-        </li>
-      </ul>
-    </div>
-  );
+            </li>
+        </div>
+    );
 }
